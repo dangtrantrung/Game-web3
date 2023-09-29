@@ -1,3 +1,5 @@
 import PageHOC from "./PageHOC";
-
-export { PageHOC };
+import CustomInput from "./CustomInput";
+import CustomButton from "./CustomButton";
+import Alert from "./Alert";
+export { PageHOC, CustomInput, CustomButton, Alert };
