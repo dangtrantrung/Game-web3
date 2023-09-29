@@ -50,22 +50,7 @@ const Home = () => {
       {/* <h1 className="text-5xl p-3">Avax Gods</h1>
       <h2 className="text-3xl p-3">Web3 NFT Battle-style Card Game</h2>
       <p className="text-xl p-3">Made with 💜 by JavaScript Mastery</p> */}
-<<<<<<< HEAD
-      {/*  <h1 className="text-xl text-white">{demo}</h1> */}
-      <CustomInput
-        label="Name"
-        placeholder="Enter your player name"
-        value={playerName}
-        handleValueChange={setPlayerName}
-      />
-      <CustomButton
-        title="Register"
-        handleClick={handleClick}
-        restType="mt-6"
-      />
-=======
       <h1 className="text-xl text-white">{demo}</h1>
->>>>>>> c3fa283117c9c93335041b9d307e39acb578d241
     </div>
   );
 };
