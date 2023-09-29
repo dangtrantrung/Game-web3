@@ -25,6 +25,14 @@ const Home = () => {
           type: "info",
           message: `${playerName} is being summoned!`,
         });
+      } else {
+        setShowAlert({
+          status: true,
+          type: "info",
+          message:
+            `${playerName} is already exist, with Account at Address: ` +
+            walletAddress,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +62,7 @@ const Home = () => {
       <CustomButton
         title="Register"
         handleClick={handleClick}
-        restStyles="mt-6"
+        restType="mt-6"
       />
     </div>
   );
