@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { PageHOC, CustomInput, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
@@ -37,14 +36,6 @@ const Home = () => {
       });
     }
   };
-=======
-import React from "react";
-import { PageHOC } from "../components";
-import { useGlobalContext } from "../context";
-
-const Home = () => {
-  const { demo } = useGlobalContext();
->>>>>>> c3fa283117c9c93335041b9d307e39acb578d241
   return (
     <div className="flex flex-col">
       {/* <h1 className="text-5xl p-3">Avax Gods</h1>
