@@ -7,12 +7,12 @@ import "./index.css";
 import { GlobalContextProvider } from "./context";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <GlobalContextProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <GlobalContextProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create-battle" element={<CreateBattle />} />
       </Routes>
-    </BrowserRouter>
-  </GlobalContextProvider>
+    </GlobalContextProvider>
+  </BrowserRouter>
 );

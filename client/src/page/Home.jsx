@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageHOC, CustomInput, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+export function Home() {
   const { contract, walletAddress, setShowAlert } = useGlobalContext();
+  const navigate = useNavigate();
   const [playerName, setPlayerName] = useState("");
   const handleClick = async () => {
     try {
@@ -44,6 +46,17 @@ const Home = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const checkForPlayerToken = async () => {
+      const playerExists = await contract.isPlayer(walletAddress);
+      const playerTokenExits = await contract.isPlayerToken(walletAddress);
+      console.log("player exist", playerExists, playerTokenExits);
+      if (playerTokenExits && playerExists) navigate("/create-battle");
+    };
+    if (contract) checkForPlayerToken();
+  }, [contract]);
+
   return (
     /*  <div className="flex flex-col">
       <h1 className="text-5xl p-3">Avax Gods</h1>
@@ -66,7 +79,7 @@ const Home = () => {
       />
     </div>
   );
-};
+}
 
 export default PageHOC(
   Home,
