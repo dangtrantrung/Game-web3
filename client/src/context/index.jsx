@@ -22,6 +22,7 @@ export function GlobalContextProvider({ children }) {
     message: "",
   });
   const navigate = useNavigate();
+  const [battleName, setBattleName] = useState("");
 
   //* Set the wallet address to the state
   const updateCurrentWalletAddress = async () => {
@@ -53,7 +54,7 @@ export function GlobalContextProvider({ children }) {
 
     setSmartContractAndProvider();
   }, []);
-  // set eventlisteners for contract change
+  // set event listeners for contract change
   useEffect(() => {
     if (contract) {
       createEventListeners({
@@ -78,7 +79,14 @@ export function GlobalContextProvider({ children }) {
 
   return (
     <GlobalContext.Provider
-      value={{ contract, walletAddress, showAlert, setShowAlert }}
+      value={{
+        contract,
+        walletAddress,
+        showAlert,
+        setShowAlert,
+        battleName,
+        setBattleName,
+      }}
     >
       {children}
     </GlobalContext.Provider>
