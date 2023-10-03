@@ -27,8 +27,10 @@ export function GlobalContextProvider({ children }) {
     pendingBattles: [],
     activeBattle: null,
   });
+  const [updateGameData, setUpdateGameData] = useState(0);
   const navigate = useNavigate();
   const [battleName, setBattleName] = useState("");
+  const [battleGround, setBattleGround] = useState("bg-astral");
 
   //* Set the wallet address to the state
   const updateCurrentWalletAddress = async () => {
@@ -69,9 +71,10 @@ export function GlobalContextProvider({ children }) {
         provider,
         walletAddress,
         setShowAlert,
+        setUpdateGameData,
       });
     }
-  }, [contract]);
+  }, [contract, updateGameData]);
 
   //set timer for show alert dialog and message dialog
   useEffect(() => {
@@ -111,7 +114,7 @@ export function GlobalContextProvider({ children }) {
       });
     };
     if (contract) fetchGameData();
-  }, [contract]);
+  }, [contract, gameData]);
 
   return (
     <GlobalContext.Provider
@@ -123,6 +126,8 @@ export function GlobalContextProvider({ children }) {
         battleName,
         setBattleName,
         gameData,
+        battleGround,
+        setBattleGround,
       }}
     >
       {children}
