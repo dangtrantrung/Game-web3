@@ -5,7 +5,7 @@ import styles from "../styles";
 import { useGlobalContext } from "../context";
 
 const CreateBattle = () => {
-  const { contract, battleName, setBattleName } = useGlobalContext();
+  const { contract, battleName, setBattleName, gameData } = useGlobalContext();
   const [waitBattle, setWaitBattle] = useState(false);
   const navigate = useNavigate();
   const handleClick = async () => {
@@ -17,6 +17,14 @@ const CreateBattle = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (gameData?.activeBattle?.battleStatus === 0) {
+      setWaitBattle(true);
+      console.log("gameData.activeBattle", gameData.activeBattle);
+      console.log("gamedata", gameData);
+    }
+  }, [gameData]);
 
   return (
     <>

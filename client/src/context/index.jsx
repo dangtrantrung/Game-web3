@@ -21,6 +21,12 @@ export function GlobalContextProvider({ children }) {
     type: "info",
     message: "",
   });
+
+  const [gameData, setGameData] = useState({
+    players: [],
+    pendingBattles: [],
+    activeBattle: null,
+  });
   const navigate = useNavigate();
   const [battleName, setBattleName] = useState("");
 
@@ -77,6 +83,36 @@ export function GlobalContextProvider({ children }) {
     }
   }, [showAlert]);
 
+  //set game Data to the state
+  useEffect(() => {
+    const fetchGameData = async () => {
+      const fetchedBattles = await contract.getAllBattles();
+      console.log(fetchedBattles);
+
+      const pendingBattles = fetchedBattles.filter(
+        (battle) => battle.battleStatus === 0
+      );
+      let activeBattle = null;
+
+      fetchedBattles.forEach((battle) => {
+        if (
+          battle.players.find(
+            (player) => player.toLowerCase() === walletAddress.toLowerCase()
+          )
+        ) {
+          if (battle.winner.startsWith("0x00")) {
+            activeBattle = battle;
+          }
+        }
+      });
+      setGameData({
+        pendingBattles: pendingBattles.slice(1),
+        activeBattle: activeBattle,
+      });
+    };
+    if (contract) fetchGameData();
+  }, [contract]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -86,6 +122,7 @@ export function GlobalContextProvider({ children }) {
         setShowAlert,
         battleName,
         setBattleName,
+        gameData,
       }}
     >
       {children}
