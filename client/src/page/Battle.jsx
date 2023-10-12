@@ -92,8 +92,8 @@ const Battle = () => {
         });
         setPlayer2({
           ...player02,
-          att: X,
-          def: X,
+          att: "X",
+          def: "X",
           health: p2H,
           mana: p2M,
         });
@@ -103,6 +103,14 @@ const Battle = () => {
     };
     if (contract && gameData.activeBattle) getPlayerInfo();
   }, [contract, gameData, battleName]);
+
+  /*   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!gameData?.activeBattle) navigate("/");
+    }, [2000]);
+
+    return () => clearTimeout(timer);
+  }, []); */
 
   return (
     <div

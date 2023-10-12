@@ -8,6 +8,7 @@ import React, {
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { ABI, ADDRESS } from "../contract";
+import { GetParams } from "../utils/onboard.js";
 
 import { createEventListeners } from "./createEventListeners";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +32,21 @@ export function GlobalContextProvider({ children }) {
   const navigate = useNavigate();
   const [battleName, setBattleName] = useState("");
   const [battleGround, setBattleGround] = useState("bg-astral");
+  const [step, setStep] = useState(1);
+
+  //* Reset web3 onboarding modal params
+  useEffect(() => {
+    const resetParams = async () => {
+      const currentStep = await GetParams();
+
+      setStep(currentStep.step);
+    };
+
+    resetParams();
+
+    window?.ethereum?.on("chainChanged", () => resetParams());
+    window?.ethereum?.on("accountsChanged", () => resetParams());
+  }, []);
 
   //* Set the wallet address to the state
   const updateCurrentWalletAddress = async () => {
@@ -64,7 +80,7 @@ export function GlobalContextProvider({ children }) {
   }, []);
   // set event listeners for contract change
   useEffect(() => {
-    if (contract) {
+    if (step === -1 && contract) {
       createEventListeners({
         navigate,
         contract,
@@ -74,7 +90,7 @@ export function GlobalContextProvider({ children }) {
         setUpdateGameData,
       });
     }
-  }, [contract, updateGameData]);
+  }, [step]);
 
   //set timer for show alert dialog and message dialog
   useEffect(() => {
